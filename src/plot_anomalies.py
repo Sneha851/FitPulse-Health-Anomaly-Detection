@@ -1,15 +1,14 @@
-import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 
-# Load the anomaly CSV
-df = pd.read_csv("data/heartrate_with_anomalies.csv")
-
-# Plot MEAN_RR with anomalies highlighted
-plt.figure(figsize=(12,6))
-plt.plot(df['MEAN_RR'], label='MEAN_RR')
-plt.scatter(df.index[df['anomaly']==1], df['MEAN_RR'][df['anomaly']==1], color='red', label='Anomaly')
-plt.xlabel("Index")
-plt.ylabel("MEAN_RR")
-plt.title("Heart Rate Anomalies")
-plt.legend()
-plt.show()
+def plot_anomalies(df, column='HR'):
+    plt.figure(figsize=(12,6))
+    sns.lineplot(x=df.index, y=df[column], label='Heart Rate')
+    anomalies = df[df['Anomaly'] == 1]
+    sns.scatterplot(x=anomalies.index, y=anomalies[column], color='red', label='Anomaly')
+    plt.title("Heart Rate Anomalies")
+    plt.xlabel("Time")
+    plt.ylabel("Heart Rate")
+    plt.legend()
+    plt.tight_layout()
+    return plt

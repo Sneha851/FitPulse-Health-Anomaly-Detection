@@ -1,8 +1,8 @@
-from sklearn.ensemble import IsolationForest
+import pandas as pd
+import numpy as np
 
-def detect_anomalies(df, value_column):
-    """Detect anomalies using Isolation Forest"""
-    model = IsolationForest(contamination=0.05, random_state=42)
-    df['anomaly'] = model.fit_predict(df[[value_column]])
-    df['anomaly'] = df['anomaly'].map({1: 0, -1: 1})  # 0=normal, 1=anomaly
+def detect_anomalies(df, column='HR', threshold=1.5):
+    mean_val = df[column].mean()
+    std_val = df[column].std()
+    df['Anomaly'] = np.where(np.abs(df[column] - mean_val) > threshold * std_val, 1, 0)
     return df
