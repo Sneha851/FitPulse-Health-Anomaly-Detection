@@ -1,13 +1,7 @@
-import pandas as pd
-
-def load_data(file_path):
-    """Load CSV file"""
-    return pd.read_csv(file_path)
-
-def preprocess_data(df, time_column, value_column):
-    """Clean and prepare dataset"""
-    df[time_column] = pd.to_datetime(df[time_column], errors='coerce')
-    df = df.dropna()  # remove missing values
-    df = df.sort_values(time_column)
-    df = df.reset_index(drop=True)
-    return df
+sample_data = {
+    "date": ["2025-09-01", "2025-09-02", "2025-09-03", "2025-09-04", "2025-09-05", "2025-09-06", "2025-09-07"],
+    "heart_rate": [72, 75, 120, 68, 90, 130, 74],
+    "sleep_hours": [7, 6.5, 5, 8, 6, 4.5, 7.5],
+    "steps": [5000, 7000, 8000, 4000, 6000, 3500, 7200],
+    "calories": [2200, 2100, 2500, 2000, 2300, 1800, 2400]
+}
